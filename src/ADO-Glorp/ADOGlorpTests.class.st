@@ -20,14 +20,16 @@ ADOGlorpTests >> testBasicConnectivity [
 	
 	accessor := DatabaseAccessor forLogin: login.
 	accessor login.
+	(accessor basicExecuteSQLString: 'SELECT 3+4') contents first first.
 
+
+"
 	accessor isLoggedIn .
-
 	session := TestingDescriptorSystem sessionForLogin: login.
 	session login.
 	
 	session isLoggedIn .
+"
 
-	(accessor basicExecuteSQLString: 'SELECT 3+4') contents first first.
 
 ]

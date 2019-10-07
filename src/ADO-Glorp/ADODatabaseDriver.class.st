@@ -4,8 +4,27 @@ Class {
 	#instVars : [
 		'rowCount'
 	],
-	#category : #'ADO-Glorp'
+	#category : #'ADO-Glorp-Core'
 }
+
+{ #category : #executing }
+ADODatabaseDriver >> basicExecuteSQLString: aString [
+	| result |
+	result := connection query: aString.
+	
+	rowCount := result size.
+	^ ((rowCount > 0) ifTrue: [ result ] ifFalse: [ #() ]) readStream
+]
+
+{ #category : #transactions }
+ADODatabaseDriver >> beginTransaction [
+	connection connection beginTransaction 
+]
+
+{ #category : #transactions }
+ADODatabaseDriver >> commitTransaction [
+	connection connection commitTransaction 
+]
 
 { #category : #accessing }
 ADODatabaseDriver >> connect: aLogin [
@@ -25,4 +44,9 @@ ADODatabaseDriver >> connectionClass [
 { #category : #testing }
 ADODatabaseDriver >> isConnected [
 	^ connection notNil and: [ connection isConnected ]
+]
+
+{ #category : #transactions }
+ADODatabaseDriver >> rollbackTransaction [
+	connection connection rollbackTransaction 
 ]

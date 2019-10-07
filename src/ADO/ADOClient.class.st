@@ -8,7 +8,7 @@ Class {
 		'properties',
 		'converter'
 	],
-	#category : #ADO
+	#category : #'ADO-Core'
 }
 
 { #category : #private }
@@ -28,7 +28,8 @@ ADOClient >> close [
 
 { #category : #public }
 ADOClient >> connect [
-	self ensureOpen 
+	self ensureOpen.
+	session := 999999 atRandom. 
 	
 ]
 
@@ -50,16 +51,8 @@ ADOClient >> connectString: aString [
 ]
 
 { #category : #accessing }
-ADOClient >> converter [
-	"Return the converter that I am using.
-	It holds the character encoding and timezone of the current database connection."
-	
-	^ converter ifNil: [ converter := ADOConverter new ]
-]
-
-{ #category : #accessing }
-ADOClient >> converter: anObject [
-	converter := anObject
+ADOClient >> connection [
+	^ connection
 ]
 
 { #category : #accessing }
@@ -115,10 +108,8 @@ ADOClient >> open [
 	self close.
 	
 	connection := ADOConnection createInstance .
-	connection openWitchConnectString: self connectString user: self user password: self password.
-
-"	message := P3MessageBuffer new   <-- a rabim to?"
-
+	connection open: self connectString user: self user password: self password.
+	
 ]
 
 { #category : #accessing }
@@ -135,6 +126,42 @@ ADOClient >> password: string [
 	Set to nil or don't set to use no password."
 
 	settings at: #password put: string
+]
+
+{ #category : #accessing }
+ADOClient >> query: aString [
+	| rst fields data |
+	self ensureConnected.
+	rst := connection execute: aString.
+
+	rst ifNil: [ ^ #() ].
+	rst state = 0
+		ifTrue: [ ^ #() ].
+	(rst eof and: [ rst bof ])
+		ifTrue: [ ^ #() ].
+
+	fields := rst fields.
+	data := Array
+		streamContents: [ :outerOut | 
+			[ rst eof ]
+				whileFalse: [ outerOut
+						nextPut:
+							(Array
+								streamContents: [ :innerOut | 
+									0 to: fields count - 1 do:
+										[ :idx | innerOut nextPut: (fields item: idx) value ] ]).
+					rst moveNext ] ].
+	^ data
+
+
+	"	rst := ADORecordset createInstance.
+	rst 
+		open: aString 
+		activeConnection: connection
+		cursorType: 3 
+		lockType: 1 
+		options: 0.
+"
 ]
 
 { #category : #accessing }

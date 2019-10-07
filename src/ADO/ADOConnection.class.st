@@ -1,10 +1,7 @@
 Class {
 	#name : #ADOConnection,
-	#superclass : #Object,
-	#instVars : [
-		'dispatchInstance'
-	],
-	#category : #ADO
+	#superclass : #ADOObjects,
+	#category : #'ADO-Core'
 }
 
 { #category : #'as yet unclassified' }
@@ -14,9 +11,35 @@ ADOConnection class >> createInstance [
 		dispatchInstance: (COMDispatchInstance createInstanceByName: 'ADODB.Connection')
 ]
 
-{ #category : #accessing }
-ADOConnection >> dispatchInstance: anObject [
-	dispatchInstance := anObject
+{ #category : #transactions }
+ADOConnection >> beginTransaction [
+	dispatchInstance 
+		dispatch: 'BeginTrans' 
+
+]
+
+{ #category : #'initialize-release' }
+ADOConnection >> close [
+	dispatchInstance
+		dispatch: 'Close'
+]
+
+{ #category : #transactions }
+ADOConnection >> commitTransaction [
+	dispatchInstance 
+		dispatch: 'CommitTrans' 
+
+]
+
+{ #category : #running }
+ADOConnection >> execute: aString [ 
+	| rst |
+	rst := ADORecordset new.
+	rst dispatchInstance: (
+		dispatchInstance 
+			dispatch: 'Execute' 
+			withArguments: { aString }).
+	^rst
 ]
 
 { #category : #testing }
@@ -25,8 +48,15 @@ ADOConnection >> isConnected [
 ]
 
 { #category : #'as yet unclassified' }
-ADOConnection >> openWitchConnectString: aConnectString user: aUser password: aPassword [  
+ADOConnection >> open: aConnectString user: aUser password: aPassword [  
 	dispatchInstance 
 		dispatch: 'Open' 
 		withArguments: { aConnectString . aUser . aPassword }
+]
+
+{ #category : #transactions }
+ADOConnection >> rollbackTransaction [
+	dispatchInstance 
+		dispatch: 'RollbackTrans' 
+
 ]

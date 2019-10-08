@@ -71,21 +71,27 @@ ADOGlorpTests >> testInsertTables [
 		{
 			(Person new
 				firstName: 'John'; lastName: 'Locke';
-				birthDate: '1704-08-29' asDate).
+				birthDate: '1972-08-29' asDate;
+				bmi: 21.5).
 			(Person new
 				firstName: 'John'; lastName: 'Malkovich';
-				birthDate: '1953-12-09' asDate).
+				birthDate: '1980-12-09' asDate;
+				bmi: 25.45).
 			(Person new
 				firstName: 'George'; lastName: 'Lucas';
-				birthDate: '1944-05-14' asDate)
+				birthDate: '1999-05-14' asDate;
+				bmi: 19.95)
 		} do: [ :each | session register: each ]
 	].
+
+
+
 
 ]
 
 { #category : #tests }
 ADOGlorpTests >> testReadTables [
-| login session |
+| login session person |
 	PharoDatabaseAccessor DefaultDriver: ADODatabaseDriver .
 
 	login := Login new
@@ -98,5 +104,5 @@ ADOGlorpTests >> testReadTables [
 	session := TestingDescriptorSystem sessionForLogin: login.
 	session login.
 
-	session read: Person.
+	person := session read: Person.
 ]

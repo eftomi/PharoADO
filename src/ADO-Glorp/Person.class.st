@@ -5,7 +5,8 @@ Class {
 		'id',
 		'firstName',
 		'lastName',
-		'birthDate'
+		'birthDate',
+		'bmi'
 	],
 	#category : #'ADO-Glorp-Tests'
 }
@@ -18,6 +19,16 @@ Person >> birthDate [
 { #category : #accessing }
 Person >> birthDate: aDate [
 	birthDate := aDate
+]
+
+{ #category : #accessing }
+Person >> bmi [
+	^ bmi
+]
+
+{ #category : #accessing }
+Person >> bmi: aFloat [
+	bmi := aFloat
 ]
 
 { #category : #accessing }

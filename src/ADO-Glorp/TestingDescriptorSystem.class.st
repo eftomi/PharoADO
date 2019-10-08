@@ -15,7 +15,8 @@ TestingDescriptorSystem >> classModelForPerson: aClassModel [
 	aClassModel newAttributeNamed: #id.
 	aClassModel newAttributeNamed: #firstName.
 	aClassModel newAttributeNamed: #lastName.
-	aClassModel newAttributeNamed: #birthDate
+	aClassModel newAttributeNamed: #birthDate.
+	aClassModel newAttributeNamed: #bmi.
 ]
 
 { #category : #'as yet unclassified' }
@@ -32,7 +33,10 @@ TestingDescriptorSystem >> descriptorForPerson: aDescriptor [
 		to: (table fieldNamed: 'lastName').
 	(aDescriptor newMapping: DirectMapping)
 		from: #birthDate
-		to: (table fieldNamed: 'birthDate')
+		to: (table fieldNamed: 'birthDate').
+	(aDescriptor newMapping: DirectMapping)
+		from: #bmi
+		to: (table fieldNamed: 'bmi')
 ]
 
 { #category : #tables }
@@ -44,8 +48,11 @@ TestingDescriptorSystem >> tableForPERSON: aTable [
 		type: (platform varChar: 100).
 	aTable
 		createFieldNamed: 'lastName'
-	type: (platform varChar: 100).
+		type: (platform varChar: 100).
 	aTable
 		createFieldNamed: 'birthDate'
-	type: platform date.
+		type: platform date.
+	aTable
+		createFieldNamed: 'bmi'
+		type: platform float.
 ]

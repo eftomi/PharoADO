@@ -52,13 +52,17 @@ ADOClientTests >> testDate [
 ]
 
 { #category : #tests }
-ADOClientTests >> testDecimal [
+ADOClientTests >> testDecimalAndNull [
 	| conn rst data |
 	conn := ADOConnection createInstance .
 	conn 
 		open: 'Provider=SQLNCLI11;Server=(localdb)\MSSQLLocalDB;Initial Catalog=People;Integrated Security=SSPI;;' 
 		user: '' 
 		password: ''.
+	rst := conn execute: 'select @@identity'.
+	data := (rst fields item: 0) value.
+	self assert: data equals: nil.
+	
 	rst := conn execute: 'insert into person (firstName, lastName) values (''Miha'', ''Krnek'')'.
 	rst := conn execute: 'select @@identity'.
 	data := (rst fields item: 0) value.

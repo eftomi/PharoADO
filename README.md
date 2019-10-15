@@ -1,7 +1,7 @@
 # PharoADO 
 
 
-PharoADO enables data persistence in Pharo by using ActiveX Data Objects (ADO) on Windows and external DBMS. It consists of two packages:
+PharoADO enables data persistence in Pharo by using ActiveX Data Objects (ADO) on Microsoft Windows and external DBMS. It consists of two packages:
 - PharoADO: this package reflects the most used ADO objects - ADOConnection, ADORecordset, ADOFields and ADOField. It also includes ADOClient class to make the communication with the database as simple as possible.
 - PharoADO-Glorp implements ADODatabaseDriver to be used as a Glorp database driver.  
 

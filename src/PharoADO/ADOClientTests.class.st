@@ -105,14 +105,14 @@ ADOClientTests >> testRstInsertOracle [
 		user: '' 
 		password: ''.
 	rst := ADORecordset createInstance .
-	rst open: 'SELECT * FROM EXAMPLE' activeConnection: conn cursorType: 2 lockType: 3 options: -1.
+	rst open: 'SELECT * FROM PERSON' activeConnection: conn cursorType: 2 lockType: 3 options: -1.
 
 	rst addNew.
-	(rst fields item: 1) value: 'John Tribeca'.
+	(rst fields item: 2) value: 'John'.
 	rst update.
 	rst moveFirst.
 	[rst eof] whileFalse: [ 
-		0 to: rst fields count - 1 do: [ :idx |
+		1 to: rst fields count do: [ :idx |
 			Transcript show: (rst fields item: idx) name; show: ':'; 
 			  			  show: (rst fields item: idx) value; cr].
 		Transcript cr.
@@ -131,14 +131,14 @@ ADOClientTests >> testRstInsertSQLServer [
 		user: '' 
 		password: ''.
 	rst := ADORecordset createInstance .
-	rst open: 'Person' activeConnection: conn cursorType: 2 lockType: 3 options: -1.
+	rst open: 'SELECT * FROM PERSON' activeConnection: conn cursorType: 2 lockType: 3 options: -1.
 
 	rst addNew.
-	(rst fields item: 1) value: 'John Tribeca'.
+	(rst fields item: 2) value: 'John'.
 	rst update.
 	rst moveFirst.
 	[rst eof] whileFalse: [ 
-		0 to: rst fields count - 1 do: [ :idx |
+		1 to: rst fields count do: [ :idx |
 			Transcript show: (rst fields item: idx) name; show: ':'; 
 			  			  show: (rst fields item: idx) value; cr].
 		Transcript cr.

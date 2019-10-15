@@ -44,6 +44,8 @@ Metacello new
 
 The usage can be seen from test examples in ADOClientTests (package PharoADO). Examples of Glorp & PharoADO usage are available in ExampleTestOracle and ExampleTestSQLServer within PharoADO-Glorp package.
 
+Please pay special attention to the connection strings. If possible, try them out firstly by other tools, since diagnostics in PharoADO can be difficult (for now) if you are not versatile with the debugger.
+
 
 
 ### ADOClient 

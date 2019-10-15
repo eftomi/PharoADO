@@ -98,16 +98,19 @@ ADOClientTests >> testNull [
 
 { #category : #tests }
 ADOClientTests >> testRstInsertOracle [
-	| conn rst  |
+	| conn rst rstNextVal |
 	conn := ADOConnection createInstance .
 	conn 
 		open: 'Driver={Oracle in instantclient_19_3};dbq=localhost:1521/XE;Uid=c##pharo;Pwd=pharo;' 
 		user: '' 
 		password: ''.
 	rst := ADORecordset createInstance .
+	rstNextVal := ADORecordset createInstance .
+	rstNextVal open: 'SELECT PERSON_ID_SEQ.NEXTVAL FROM DUAL' activeConnection: conn cursorType: 3 lockType: 1 options: -1.
 	rst open: 'SELECT * FROM PERSON' activeConnection: conn cursorType: 2 lockType: 3 options: -1.
 
 	rst addNew.
+	(rst fields item: 1) value: (rstNextVal fields item: 1) value asInteger.
 	(rst fields item: 2) value: 'John'.
 	rst update.
 	rst moveFirst.
@@ -118,6 +121,7 @@ ADOClientTests >> testRstInsertOracle [
 		Transcript cr.
 		rst moveNext	].
 	
+	rstNextVal close.
 	rst close.
 	conn close.
 ]

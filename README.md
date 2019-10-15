@@ -95,7 +95,7 @@ rst close.
 conn close.
 ```
 
-The database table in the example is from the Glorp book (Maringolo et al. (2018) Object-Relational Persistence with Glorp).
+The database table in the example is from the Glorp book (Maringolo et al. (2018) Object-Relational Persistence with Glorp). The example is intentionally written in a procedural fashion, to see the resemblance to the traditional usage of Connection and Recordset objects.
 
 ### PharoADO-Glorp
 

@@ -5,8 +5,7 @@ Class {
 		'connection',
 		'session',
 		'settings',
-		'properties',
-		'converter'
+		'properties'
 	],
 	#category : #'ADO-Core'
 }

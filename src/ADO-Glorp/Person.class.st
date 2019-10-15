@@ -1,15 +1,27 @@
 Class {
 	#name : #Person,
-	#superclass : #Object,
+	#superclass : #ExampleObject,
 	#instVars : [
-		'id',
 		'firstName',
+		'email',
 		'lastName',
 		'birthDate',
-		'bmi'
+		'addresses',
+		'invoices',
+		'tags'
 	],
-	#category : #'ADO-Glorp-Tests'
+	#category : #'ADO-Glorp-Examples'
 }
+
+{ #category : #accessing }
+Person >> addresses [
+	^ addresses
+]
+
+{ #category : #accessing }
+Person >> addresses: anObject [
+	addresses := anObject
+]
 
 { #category : #accessing }
 Person >> birthDate [
@@ -17,18 +29,18 @@ Person >> birthDate [
 ]
 
 { #category : #accessing }
-Person >> birthDate: aDate [
-	birthDate := aDate
+Person >> birthDate: anObject [
+	birthDate := anObject
 ]
 
 { #category : #accessing }
-Person >> bmi [
-	^ bmi
+Person >> email [
+	^ email
 ]
 
 { #category : #accessing }
-Person >> bmi: aFloat [
-	bmi := aFloat
+Person >> email: anObject [
+	email := anObject
 ]
 
 { #category : #accessing }
@@ -37,14 +49,25 @@ Person >> firstName [
 ]
 
 { #category : #accessing }
-Person >> firstName: aString [
-	firstName := aString
+Person >> firstName: anObject [
+	firstName := anObject
 ]
 
 { #category : #initialization }
 Person >> initialize [
 	super initialize.
-	birthDate := '1/1/1970' asDate
+	addresses := OrderedCollection new.
+	invoices := OrderedCollection new.
+]
+
+{ #category : #accessing }
+Person >> invoices [
+	^ invoices
+]
+
+{ #category : #accessing }
+Person >> invoices: anObject [
+	invoices := anObject
 ]
 
 { #category : #accessing }
@@ -53,6 +76,16 @@ Person >> lastName [
 ]
 
 { #category : #accessing }
-Person >> lastName: aString [
-	lastName := aString
+Person >> lastName: anObject [
+	lastName := anObject
+]
+
+{ #category : #accessing }
+Person >> tags [
+	^ tags
+]
+
+{ #category : #accessing }
+Person >> tags: anObject [
+	tags := anObject
 ]

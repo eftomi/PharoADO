@@ -5,129 +5,78 @@ Class {
 }
 
 { #category : #tests }
-ADOClientTests >> testConnectionAndRecordset [
-	| conn rst fields data |
-	conn := ADOConnection createInstance .
-	conn 
-		open: 'DSN=ISLOVAR;' 
-		user: 'Islovar30' 
-		password: 'informatika01'.
-	rst := ADORecordset createInstance .
-	rst 
-		open: 'SELECT TOP 5 * FROM Term'
-	 	activeConnection: conn 
-		cursorType: 3 
-		lockType:  1
-		options: 0.
-	fields := rst fields.
-	data := Array streamContents: [ :outerOut |
-		[ rst eof ] whileFalse: [ 
-			outerOut nextPut: (
-				Array streamContents: [ :innerOut |
-					0 to: (fields count - 1) do: [ :idx | 
-						innerOut nextPut: ((fields item: idx) value ).
-						 ]
-				 ]
-			).
-			rst moveNext.
-		 ]
-	].
-	rst close.
-	conn close.
-]
-
-{ #category : #tests }
-ADOClientTests >> testDate [
-	| conn rst data |
+ADOClientTests >> testCreateTable [
+	| conn |
 	conn := ADOConnection createInstance .
 	conn 
 		open: 'Provider=SQLNCLI11;Server=(localdb)\MSSQLLocalDB;Initial Catalog=People;Integrated Security=SSPI;;' 
 		user: '' 
 		password: ''.
-	rst := conn execute: 'select birthDate from person'.
-	data := (rst fields item: 0) value.
-	rst close.
+
+	conn execute: 'CREATE TABLE [dbo].[myTable]
+		(
+			[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
+			[Description] NVARCHAR(50) NULL, 
+			[Date] DATE NULL, 
+			[DecimalValue] DECIMAL(18, 2) NULL, 
+			[FloatValue] FLOAT NULL
+		)'.
 	conn close.
 
 ]
 
 { #category : #tests }
-ADOClientTests >> testDecimalAndNull [
-	| conn rst data |
-	conn := ADOConnection createInstance .
-	conn 
-		open: 'Provider=SQLNCLI11;Server=(localdb)\MSSQLLocalDB;Initial Catalog=People;Integrated Security=SSPI;;' 
-		user: '' 
+ADOClientTests >> testDelete [
+	| conn rst  |
+	conn := ADOConnection createInstance.
+	conn
+		open:
+			'Provider=SQLNCLI11;Server=(localdb)\MSSQLLocalDB;Initial Catalog=People;Integrated Security=SSPI;AutoTranslate=true;'
+		user: ''
 		password: ''.
-	rst := conn execute: 'select @@identity'.
-	data := (rst fields item: 0) value.
-	self assert: data equals: nil.
-	
-	rst := conn execute: 'insert into person (firstName, lastName) values (''Miha'', ''Krnek'')'.
-	rst := conn execute: 'select @@identity'.
-	data := (rst fields item: 0) value.
-	rst close.
-	conn close.
-	self assert: data isNumber equals: true
-]
+	rst := ADORecordset createInstance.
+	rst
+		open: 'SELECT * FROM [dbo].[myTable]'
+		activeConnection: conn
+		cursorType: 2
+		lockType: 3
+		options: -1.
 
-{ #category : #tests }
-ADOClientTests >> testDouble [
-	| conn rst data |
-	conn := ADOConnection createInstance .
-	conn 
-		open: 'Provider=SQLNCLI11;Server=(localdb)\MSSQLLocalDB;Initial Catalog=People;Integrated Security=SSPI;;' 
-		user: '' 
-		password: ''.
-	rst := conn execute: 'select bmi from person'.
-	data := (rst fields item: 0) value.
-	rst close.
-	conn close.
-	self assert: data isFloat equals: true
+	rst addNew.
+	(rst fields item: 1) value: 'This is unimportant record'.
+	rst update.
+	(rst fields item: 1) value inspect.
+	rst movePrevious; moveNext .
+	rst delete.
 
+	rst close.
+	conn close
 ]
 
 { #category : #tests }
 ADOClientTests >> testInsert [
 	| conn rst data |
-	conn := ADOConnection createInstance .
-	conn 
-		open: 'Provider=SQLNCLI11;Server=(localdb)\MSSQLLocalDB;Initial Catalog=People;Integrated Security=SSPI;;' 
-		user: '' 
+	conn := ADOConnection createInstance.
+	conn
+		open:
+			'Provider=SQLNCLI11;Server=(localdb)\MSSQLLocalDB;Initial Catalog=People;Integrated Security=SSPI;AutoTranslate=true;'
+		user: ''
 		password: ''.
-	conn execute: 'INSERT INTO Person (firstName,lastName,birthDate,bmi) VALUES (''John'',''Locke'',{ ts ''1760-08-29 00:00:00'' },20.59)'.
-	conn close.
-]
+	rst := ADORecordset createInstance.
+	rst
+		open: 'SELECT * FROM [dbo].[myTable]'
+		activeConnection: conn
+		cursorType: 2
+		lockType: 3
+		options: -1.
 
-{ #category : #tests }
-ADOClientTests >> testLocalDB [
-	| conn rst fields data |
-	conn := ADOConnection createInstance .
-	conn 
-		open: 'Provider=SQLNCLI11;Server=(localdb)\MSSQLLocalDB;Initial Catalog=People;Integrated Security=SSPI;' 
-		user: '' 
-		password: ''.
-"	rst := ADORecordset createInstance .
-	rst 
-		open: 'SELECT TOP 5 * FROM Term'
-	 	activeConnection: conn 
-		cursorType: 3 
-		lockType:  1
-		options: 0.
-	fields := rst fields.
-	data := Array streamContents: [ :outerOut |
-		[ rst eof ] whileFalse: [ 
-			outerOut nextPut: (
-				Array streamContents: [ :innerOut |
-					0 to: (fields count - 1) do: [ :idx | 
-						innerOut nextPut: ((fields item: idx) value ).
-						 ]
-				 ]
-			).
-			rst moveNext.
-		 ]
-	].
-"
+	rst addNew.
+	data := {'This is new record'. Date today. 12345. 12345 }.
+	1 to: rst fields count - 1 do: [ :idx | (rst fields item: idx) value: (data at: idx) ].
+	rst update.
+
+	rst close.
+	conn close
 ]
 
 { #category : #tests }
@@ -138,9 +87,88 @@ ADOClientTests >> testNull [
 		open: 'Provider=SQLNCLI11;Server=(localdb)\MSSQLLocalDB;Initial Catalog=People;Integrated Security=SSPI;;' 
 		user: '' 
 		password: ''.
-	rst := conn execute: 'select @@identity'.
+
+	rst := conn execute: 'SELECT @@IDENTITY'.
 	data := (rst fields item: 0) value.
+
 	rst close.
 	conn close.
-	self assert: data equals: nil
+
+]
+
+{ #category : #tests }
+ADOClientTests >> testRstInsertOracle [
+	| conn rst  |
+	conn := ADOConnection createInstance .
+	conn 
+		open: 'Driver={Oracle in instantclient_19_3};dbq=itchy.miskoti.si:1521/XE;Uid=c##pharo;Pwd=pharo;' 
+		user: '' 
+		password: ''.
+	rst := ADORecordset createInstance .
+	rst open: 'SELECT * FROM EXAMPLE' activeConnection: conn cursorType: 2 lockType: 3 options: -1.
+
+	rst addNew.
+	(rst fields item: 1) value: 'John Tribeca'.
+	rst update.
+	rst moveFirst.
+	[rst eof] whileFalse: [ 
+		0 to: rst fields count - 1 do: [ :idx |
+			Transcript show: (rst fields item: idx) name; show: ':'; 
+			  			  show: (rst fields item: idx) value; cr].
+		Transcript cr.
+		rst moveNext	].
+	
+	rst close.
+	conn close.
+]
+
+{ #category : #tests }
+ADOClientTests >> testRstInsertSQLServer [
+	| conn rst  |
+	conn := ADOConnection createInstance .
+	conn 
+		open: 'Provider=SQLNCLI11;Server=(localdb)\MSSQLLocalDB;Initial Catalog=People;Integrated Security=SSPI;' 
+		user: '' 
+		password: ''.
+	rst := ADORecordset createInstance .
+	rst open: 'Person' activeConnection: conn cursorType: 2 lockType: 3 options: -1.
+
+	rst addNew.
+	(rst fields item: 1) value: 'John Tribeca'.
+	rst update.
+	rst moveFirst.
+	[rst eof] whileFalse: [ 
+		0 to: rst fields count - 1 do: [ :idx |
+			Transcript show: (rst fields item: idx) name; show: ':'; 
+			  			  show: (rst fields item: idx) value; cr].
+		Transcript cr.
+		rst moveNext	].
+	
+	rst close.
+	conn close.
+]
+
+{ #category : #tests }
+ADOClientTests >> testSelect [
+	| conn rst data |
+	conn := ADOConnection createInstance.
+	conn
+		open:
+			'Provider=SQLNCLI11;Server=(localdb)\MSSQLLocalDB;Initial Catalog=People;Integrated Security=SSPI;AutoTranslate=true;'
+		user: ''
+		password: ''.
+	rst := ADORecordset createInstance.
+	rst
+		open: 'SELECT * FROM [dbo].[myTable]'
+		activeConnection: conn
+		cursorType: 3
+		lockType: 1
+		options: -1.
+
+	data := OrderedCollection new.
+	data := (1 to: rst fields count - 1) collect: [ :idx | (rst fields item: idx) value ].
+	data inspect.
+
+	rst close.
+	conn close
 ]

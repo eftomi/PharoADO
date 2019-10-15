@@ -10,7 +10,7 @@ ADO comprises a set of Component Object Model (COM) objects to access various da
 Since ADO is based on Component Object Model (COM), PharoADO relies on PharoCOM and other packages in PharoWin32 repository (https://github.com/tesonep/pharo-com).
 
 This repository is a prototype. Please test it in your own environments, especially by:
-- different DBMS endpoints (e.g. SQL Server, Oracle)
+- different DBMS endpoints (e.g. SQL Server, Oracle, MySQL, SQLite)
 - using various data providers (e.g. ODBC, native clients)
 - trying out various database data types.
 

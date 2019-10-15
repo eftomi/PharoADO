@@ -7,7 +7,7 @@ Class {
 		'address',
 		'items'
 	],
-	#category : #'ADO-Glorp-Examples'
+	#category : #'PharoADO-Glorp-Examples'
 }
 
 { #category : #adding }

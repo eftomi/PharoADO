@@ -1,17 +1,17 @@
 Class {
-	#name : #ExampleTestOracle,
+	#name : #ExampleTestSQLServer,
 	#superclass : #TestCase,
-	#category : #'ADO-Glorp-Examples'
+	#category : #'PharoADO-Glorp-Examples'
 }
 
 { #category : #tests }
-ExampleTestOracle >> testAddPersons [
+ExampleTestSQLServer >> testAddPersons [
 	| login session |
 	PharoDatabaseAccessor DefaultDriver: ADODatabaseDriver .
 
 	login := Login new
-		database: OraclePlatformADO new;
-		connectString: 'Driver={Oracle in instantclient_19_3};dbq=itchy.miskoti.si:1521/XE;Uid=c##pharo;Pwd=pharo;';
+		database: SQLServerPlatform new;
+		connectString: 'Provider=SQLNCLI11;Server=(localdb)\MSSQLLocalDB;Initial Catalog=People;Integrated Security=SSPI;';
 		username: '';
 		password: '';
 		encodingStrategy: #utf8;
@@ -90,13 +90,13 @@ invoice for each person in the database with two items describing donations to t
 ]
 
 { #category : #tests }
-ExampleTestOracle >> testCreateTables [
+ExampleTestSQLServer >> testCreateTables [
 	| login session |
 	PharoDatabaseAccessor DefaultDriver: ADODatabaseDriver .
 
 	login := Login new
-		database: OraclePlatformADO new;
-		connectString: 'Driver={Oracle in instantclient_19_3};dbq=itchy.miskoti.si:1521/XE;Uid=c##pharo;Pwd=pharo;';
+		database: SQLServerPlatform new;
+		connectString: 'Provider=SQLNCLI11;Server=(localdb)\MSSQLLocalDB;Initial Catalog=People;Integrated Security=SSPI;';
 		username: '';
 		password: '';
 		encodingStrategy: #utf8;
@@ -109,13 +109,13 @@ ExampleTestOracle >> testCreateTables [
 ]
 
 { #category : #tests }
-ExampleTestOracle >> testGroupBy [
+ExampleTestSQLServer >> testGroupBy [
 	| login session |
 	PharoDatabaseAccessor DefaultDriver: ADODatabaseDriver .
 
 	login := Login new
-		database: OraclePlatformADO new;
-		connectString: 'Driver={Oracle in instantclient_19_3};dbq=itchy.miskoti.si:1521/XE;Uid=c##pharo;Pwd=pharo;';
+		database: SQLServerPlatform new;
+		connectString: 'Provider=SQLNCLI11;Server=(localdb)\MSSQLLocalDB;Initial Catalog=People;Integrated Security=SSPI;';
 		username: '';
 		password: '';
 		encodingStrategy: #utf8;
@@ -140,13 +140,13 @@ ExampleTestOracle >> testGroupBy [
 ]
 
 { #category : #tests }
-ExampleTestOracle >> testOrderBy [
+ExampleTestSQLServer >> testOrderBy [
 	| login session |
 	PharoDatabaseAccessor DefaultDriver: ADODatabaseDriver .
 
 	login := Login new
-		database: OraclePlatformADO new;
-		connectString: 'Driver={Oracle in instantclient_19_3};dbq=itchy.miskoti.si:1521/XE;Uid=c##pharo;Pwd=pharo;';
+		database: SQLServerPlatform new;
+		connectString: 'Provider=SQLNCLI11;Server=(localdb)\MSSQLLocalDB;Initial Catalog=People;Integrated Security=SSPI;';
 		username: '';
 		password: '';
 		encodingStrategy: #utf8;
@@ -162,13 +162,13 @@ ExampleTestOracle >> testOrderBy [
 ]
 
 { #category : #tests }
-ExampleTestOracle >> testRead [
+ExampleTestSQLServer >> testRead [
 	| login session |
 	PharoDatabaseAccessor DefaultDriver: ADODatabaseDriver .
 
 	login := Login new
-		database: OraclePlatformADO new;
-		connectString: 'Driver={Oracle in instantclient_19_3};dbq=itchy.miskoti.si:1521/XE;Uid=c##pharo;Pwd=pharo;';
+		database: SQLServerPlatform new;
+		connectString: 'Provider=SQLNCLI11;Server=(localdb)\MSSQLLocalDB;Initial Catalog=People;Integrated Security=SSPI;';
 		username: '';
 		password: '';
 		encodingStrategy: #utf8;
@@ -192,13 +192,13 @@ print how much each Person donated."
 ]
 
 { #category : #tests }
-ExampleTestOracle >> testWhere [
+ExampleTestSQLServer >> testWhere [
 	| login session |
 	PharoDatabaseAccessor DefaultDriver: ADODatabaseDriver .
 
 	login := Login new
-		database: OraclePlatformADO new;
-		connectString: 'Driver={Oracle in instantclient_19_3};dbq=itchy.miskoti.si:1521/XE;Uid=c##pharo;Pwd=pharo;';
+		database: SQLServerPlatform new;
+		connectString: 'Provider=SQLNCLI11;Server=(localdb)\MSSQLLocalDB;Initial Catalog=People;Integrated Security=SSPI;';
 		username: '';
 		password: '';
 		encodingStrategy: #utf8;

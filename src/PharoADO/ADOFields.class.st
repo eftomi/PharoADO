@@ -1,7 +1,7 @@
 Class {
 	#name : #ADOFields,
 	#superclass : #ADOObjects,
-	#category : #'ADO-Core'
+	#category : #'PharoADO-Core'
 }
 
 { #category : #accessing }
@@ -17,7 +17,7 @@ ADOFields >> item: anInteger [
 	field dispatchInstance: 
 		(dispatchInstance
 			propertyNamed: 'Item'
-			withArguments: { anInteger }).
+			withArguments: { anInteger - 1 }).
 	^field
 		
 ]

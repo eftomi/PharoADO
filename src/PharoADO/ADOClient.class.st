@@ -7,7 +7,7 @@ Class {
 		'settings',
 		'properties'
 	],
-	#category : #'ADO-Core'
+	#category : #'PharoADO-Core'
 }
 
 { #category : #private }

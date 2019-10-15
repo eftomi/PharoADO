@@ -1,7 +1,7 @@
 Class {
 	#name : #ExampleDescriptorSystem,
 	#superclass : #DescriptorSystem,
-	#category : #'ADO-Glorp-Examples'
+	#category : #'PharoADO-Glorp-Examples'
 }
 
 { #category : #'as yet unclassified' }

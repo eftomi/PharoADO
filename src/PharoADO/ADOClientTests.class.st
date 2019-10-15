@@ -1,7 +1,7 @@
 Class {
 	#name : #ADOClientTests,
 	#superclass : #TestCase,
-	#category : #'ADO-Tests'
+	#category : #'PharoADO-Tests'
 }
 
 { #category : #tests }
@@ -43,9 +43,9 @@ ADOClientTests >> testDelete [
 		options: -1.
 
 	rst addNew.
-	(rst fields item: 1) value: 'This is unimportant record'.
+	(rst fields item: 2) value: 'This is unimportant record'.
 	rst update.
-	(rst fields item: 1) value inspect.
+	(rst fields item: 2) value inspect.
 	rst movePrevious; moveNext .
 	rst delete.
 
@@ -71,8 +71,8 @@ ADOClientTests >> testInsert [
 		options: -1.
 
 	rst addNew.
-	data := {'This is new record'. Date today. 12345. 12345 }.
-	1 to: rst fields count - 1 do: [ :idx | (rst fields item: idx) value: (data at: idx) ].
+	data := {'#Id'. 'This is new record'. Date today. 12345. 12345 }.
+	2 to: rst fields count do: [ :idx | (rst fields item: idx) value: (data at: idx) ].
 	rst update.
 
 	rst close.
@@ -89,7 +89,7 @@ ADOClientTests >> testNull [
 		password: ''.
 
 	rst := conn execute: 'SELECT @@IDENTITY'.
-	data := (rst fields item: 0) value.
+	data := (rst fields item: 1) value.
 
 	rst close.
 	conn close.
@@ -101,7 +101,7 @@ ADOClientTests >> testRstInsertOracle [
 	| conn rst  |
 	conn := ADOConnection createInstance .
 	conn 
-		open: 'Driver={Oracle in instantclient_19_3};dbq=itchy.miskoti.si:1521/XE;Uid=c##pharo;Pwd=pharo;' 
+		open: 'Driver={Oracle in instantclient_19_3};dbq=localhost:1521/XE;Uid=c##pharo;Pwd=pharo;' 
 		user: '' 
 		password: ''.
 	rst := ADORecordset createInstance .
@@ -165,8 +165,12 @@ ADOClientTests >> testSelect [
 		lockType: 1
 		options: -1.
 
-	data := OrderedCollection new.
-	data := (1 to: rst fields count - 1) collect: [ :idx | (rst fields item: idx) value ].
+	data := Array streamContents: [ :stream |
+		[ rst eof ] whileFalse: [ 
+			stream nextPut: ((1 to: rst fields count) collect: [ :idx | (rst fields item: idx) value ]).
+			rst moveNext.
+		 ].
+	].
 	data inspect.
 
 	rst close.

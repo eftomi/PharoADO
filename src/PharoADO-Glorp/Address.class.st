@@ -7,7 +7,7 @@ Class {
 		'city',
 		'zip'
 	],
-	#category : #'ADO-Glorp-Examples'
+	#category : #'PharoADO-Glorp-Examples'
 }
 
 { #category : #accessing }

@@ -1,7 +1,7 @@
 Class {
 	#name : #ADOConnection,
 	#superclass : #ADOObjects,
-	#category : #'ADO-Core'
+	#category : #'PharoADO-Core'
 }
 
 { #category : #'as yet unclassified' }

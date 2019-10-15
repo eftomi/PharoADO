@@ -1,7 +1,7 @@
 Class {
 	#name : #ADOField,
 	#superclass : #ADOObjects,
-	#category : #'ADO-Core'
+	#category : #'PharoADO-Core'
 }
 
 { #category : #accessing }

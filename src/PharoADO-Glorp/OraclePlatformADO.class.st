@@ -1,7 +1,7 @@
 Class {
 	#name : #OraclePlatformADO,
 	#superclass : #OraclePlatform,
-	#category : #'ADO-Glorp-Platforms'
+	#category : #'PharoADO-Glorp-Platforms'
 }
 
 { #category : #types }

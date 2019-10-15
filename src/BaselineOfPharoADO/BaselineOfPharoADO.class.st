@@ -15,8 +15,10 @@ BaselineOfPharoADO >> baseline: spec [
 			spec baseline: 'P3' with: [ spec repository: 'github://svenvc/P3:master/'].
 
 			spec package: 'PharoADO' with: [ spec requires: #('PharoWin32') ].
-			spec package: 'PharoADO-Glorp' with: [ spec requires: #('PharoADO' 'Glorp' 'P3') ].
+			spec package: 'PharoADO-Glorp' with: [ spec requires: #('PharoADO' 'Glorp') ].
+			spec package: 'PharoADO-Glorp-P3' with: [ spec requires: #('PharoADO' 'Glorp' 'P3') ].
 
-			spec group: 'default' with: #('PharoADO' 'PharoADO-Glorp') ].
+			spec group: 'default' with: #('PharoADO' 'PharoADO-Glorp').
+			spec group: 'ado-glorp-p3' with: #('PharoADO' 'PharoADO-Glorp-P3') ].
 
 ]

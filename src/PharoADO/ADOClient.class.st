@@ -147,7 +147,7 @@ ADOClient >> query: aString [
 						nextPut:
 							(Array
 								streamContents: [ :innerOut | 
-									0 to: fields count - 1 do:
+									1 to: fields count do:
 										[ :idx | innerOut nextPut: (fields item: idx) value ] ]).
 					rst moveNext ] ].
 	^ data
@@ -167,7 +167,7 @@ ADOClient >> query: aString [
 ADOClient >> queryEncoding [
 	"Return the name of the encoder used"
 	
-	^ self converter encoder identifier
+	^ 'utf8'
 ]
 
 { #category : #accessing }

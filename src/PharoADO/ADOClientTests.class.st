@@ -71,7 +71,7 @@ ADOClientTests >> testInsert [
 		options: -1.
 
 	rst addNew.
-	data := {'#Id'. 'This is new record'. Date today. 12345. 12345 }.
+	data := {'#Id'. 'This is new record'. Date today. 12345.6789s3. 12345.67 }.
 	2 to: rst fields count do: [ :idx | (rst fields item: idx) value: (data at: idx) ].
 	rst update.
 

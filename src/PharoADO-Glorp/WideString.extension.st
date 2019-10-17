@@ -4,7 +4,8 @@ Extension { #name : #WideString }
 WideString >> glorpPrintSQLOn: aCommand [
 	| platform requiresEscape |
 	platform := [aCommand platform] on: MessageNotUnderstood do: [:ex | ex return: nil].
-	aCommand nextPut: $N; nextPut: $'.
+	(platform respondsTo: #prefixForUnicode) ifTrue: [ aCommand nextPut: platform prefixForUnicode ].
+	aCommand nextPut: $'.
 	1
 		to: self size
 		do:

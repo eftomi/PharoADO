@@ -177,7 +177,7 @@ ExampleDescriptorSystem >> tableForINVOICEITEM: aTable [
 { #category : #tables }
 ExampleDescriptorSystem >> tableForPERSON: aTable [
 	(aTable createFieldNamed: 'id' type: platform serial) bePrimaryKey.
-	aTable createFieldNamed: 'firstName' type: (platform varChar: 100).
+	aTable createFieldNamed: 'firstName' type: (platform nvarchar width: 100).
 	aTable createFieldNamed: 'lastName' type: (platform varChar: 100).
 	aTable createFieldNamed: 'email' type: (platform varchar: 200).
 	aTable createFieldNamed: 'birthDate' type: platform date.

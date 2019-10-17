@@ -1,18 +1,18 @@
 Class {
-	#name : #ExampleDescriptorSystem,
+	#name : #ExampleDescriptorSystemSQLServer,
 	#superclass : #DescriptorSystem,
 	#category : #'PharoADO-Glorp-Examples'
 }
 
 { #category : #'as yet unclassified' }
-ExampleDescriptorSystem >> classModelForAddress: aClassModel [
+ExampleDescriptorSystemSQLServer >> classModelForAddress: aClassModel [
 	(aClassModel newAttributeNamed: #id) useDirectAccess: true.
 	aClassModel newAttributeNamed: #street.
 	aClassModel newAttributeNamed: #zip
 ]
 
 { #category : #'as yet unclassified' }
-ExampleDescriptorSystem >> classModelForInvoice: aClassModel [
+ExampleDescriptorSystemSQLServer >> classModelForInvoice: aClassModel [
 	(aClassModel newAttributeNamed: #id) useDirectAccess: true.
 	aClassModel newAttributeNamed: #issueDate.
 	aClassModel newAttributeNamed: #person type: Person.
@@ -21,7 +21,7 @@ ExampleDescriptorSystem >> classModelForInvoice: aClassModel [
 ]
 
 { #category : #'as yet unclassified' }
-ExampleDescriptorSystem >> classModelForInvoiceItem: aClassModel [
+ExampleDescriptorSystemSQLServer >> classModelForInvoiceItem: aClassModel [
 	(aClassModel newAttributeNamed: #id) useDirectAccess: true.
 	aClassModel newAttributeNamed: #invoice type: Invoice.
 	aClassModel newAttributeNamed: #description.
@@ -29,7 +29,7 @@ ExampleDescriptorSystem >> classModelForInvoiceItem: aClassModel [
 ]
 
 { #category : #'as yet unclassified' }
-ExampleDescriptorSystem >> classModelForPerson: aClassModel [
+ExampleDescriptorSystemSQLServer >> classModelForPerson: aClassModel [
 	(aClassModel newAttributeNamed: #id) useDirectAccess: true.
 	aClassModel newAttributeNamed: #firstName.
 	aClassModel newAttributeNamed: #lastName.
@@ -41,7 +41,7 @@ ExampleDescriptorSystem >> classModelForPerson: aClassModel [
 ]
 
 { #category : #'as yet unclassified' }
-ExampleDescriptorSystem >> descriptorForAddress: aDescriptor [
+ExampleDescriptorSystemSQLServer >> descriptorForAddress: aDescriptor [
 	| table |
 	table := self tableNamed: 'ADDRESS'.
 	aDescriptor table: table.
@@ -57,7 +57,7 @@ ExampleDescriptorSystem >> descriptorForAddress: aDescriptor [
 ]
 
 { #category : #'as yet unclassified' }
-ExampleDescriptorSystem >> descriptorForInvoice: aDescriptor [
+ExampleDescriptorSystemSQLServer >> descriptorForInvoice: aDescriptor [
 	| table |
 	table := self tableNamed: 'INVOICE'.
 	aDescriptor table: table.
@@ -79,7 +79,7 @@ ExampleDescriptorSystem >> descriptorForInvoice: aDescriptor [
 ]
 
 { #category : #'as yet unclassified' }
-ExampleDescriptorSystem >> descriptorForInvoiceItem: aDescriptor [
+ExampleDescriptorSystemSQLServer >> descriptorForInvoiceItem: aDescriptor [
 	| table |
 	table := self tableNamed: 'INVOICEITEM'.
 	aDescriptor table: table.
@@ -97,7 +97,7 @@ ExampleDescriptorSystem >> descriptorForInvoiceItem: aDescriptor [
 ]
 
 { #category : #'as yet unclassified' }
-ExampleDescriptorSystem >> descriptorForPerson: aDescriptor [
+ExampleDescriptorSystemSQLServer >> descriptorForPerson: aDescriptor [
 	| table linkTable |
 	table := self tableNamed: 'PERSON'.
 	aDescriptor table: table.
@@ -134,14 +134,14 @@ ExampleDescriptorSystem >> descriptorForPerson: aDescriptor [
 ]
 
 { #category : #'as yet unclassified' }
-ExampleDescriptorSystem >> tableForADDRESS: aTable [
+ExampleDescriptorSystemSQLServer >> tableForADDRESS: aTable [
 	(aTable createFieldNamed: 'id' type: platform serial) bePrimaryKey.
 	aTable createFieldNamed: 'street' type: (platform varChar: 100).
 	aTable createFieldNamed: 'zip' type: platform integer.
 ]
 
 { #category : #'as yet unclassified' }
-ExampleDescriptorSystem >> tableForINVOICE: aTable [
+ExampleDescriptorSystemSQLServer >> tableForINVOICE: aTable [
 | personField addressField |
 	(aTable createFieldNamed: 'id' type: platform serial)
 		bePrimaryKey.
@@ -161,7 +161,7 @@ ExampleDescriptorSystem >> tableForINVOICE: aTable [
 ]
 
 { #category : #'as yet unclassified' }
-ExampleDescriptorSystem >> tableForINVOICEITEM: aTable [
+ExampleDescriptorSystemSQLServer >> tableForINVOICEITEM: aTable [
 	| invoiceField |
 	(aTable createFieldNamed: 'id' type: platform serial) bePrimaryKey.
 	invoiceField := aTable createFieldNamed: 'invoice_id' type:
@@ -175,16 +175,16 @@ ExampleDescriptorSystem >> tableForINVOICEITEM: aTable [
 ]
 
 { #category : #tables }
-ExampleDescriptorSystem >> tableForPERSON: aTable [
+ExampleDescriptorSystemSQLServer >> tableForPERSON: aTable [
 	(aTable createFieldNamed: 'id' type: platform serial) bePrimaryKey.
-	aTable createFieldNamed: 'firstName' type: (platform varChar: 100).
-	aTable createFieldNamed: 'lastName' type: (platform varChar: 100).
+	aTable createFieldNamed: 'firstName' type: (platform nvarchar width: 100).
+	aTable createFieldNamed: 'lastName' type: (platform nvarchar width: 100).
 	aTable createFieldNamed: 'email' type: (platform varchar: 200).
 	aTable createFieldNamed: 'birthDate' type: platform date.
 ]
 
 { #category : #'as yet unclassified' }
-ExampleDescriptorSystem >> tableForPERSON_ON_ADDRESS: aTable [
+ExampleDescriptorSystemSQLServer >> tableForPERSON_ON_ADDRESS: aTable [
 	| personField addressField |
 	personField := aTable
 		createFieldNamed: 'person_id'

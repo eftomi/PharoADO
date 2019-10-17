@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'dispatchInstance'
 	],
-	#category : #'ADO-Core'
+	#category : #'PharoADO-Core'
 }
 
 { #category : #accessing }

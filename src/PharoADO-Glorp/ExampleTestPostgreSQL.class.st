@@ -1,19 +1,19 @@
 Class {
-	#name : #ExampleTestSQLServer,
+	#name : #ExampleTestPostgreSQL,
 	#superclass : #TestCase,
-	#category : #'ADO-Glorp-Examples'
+	#category : #'PharoADO-Glorp-Examples'
 }
 
 { #category : #tests }
-ExampleTestSQLServer >> testAddPersons [
+ExampleTestPostgreSQL >> testAddPersons [
 	| login session |
-	PharoDatabaseAccessor DefaultDriver: ADODatabaseDriver .
+	PharoDatabaseAccessor DefaultDriver: P3DatabaseDriver .
 
 	login := Login new
-		database: SQLServerPlatform new;
-		connectString: 'Provider=SQLNCLI11;Server=(localdb)\MSSQLLocalDB;Initial Catalog=People;Integrated Security=SSPI;';
-		username: '';
-		password: '';
+		database: PostgreSQLPlatform new;
+		username: 'pharo';
+		password: 'pharo';
+		connectString: 'localhost:5432_myDB';
 		encodingStrategy: #utf8;
 		yourself.
 
@@ -85,20 +85,29 @@ invoice for each person in the database with two items describing donations to t
 	].
 
 
+"As usual, you can read the Invoices by doing session read: Invoice, let’s
+print how much each Person donated."
+
+	(session read: Invoice) do: [:each |
+		Transcript
+			show: each person firstName, ' ', each person lastName;
+			show: ': ', each totalPrice printString;
+			cr.
+	]
 
 
 ]
 
 { #category : #tests }
-ExampleTestSQLServer >> testCreateTables [
+ExampleTestPostgreSQL >> testCreateTables [
 	| login session |
-	PharoDatabaseAccessor DefaultDriver: ADODatabaseDriver .
+	PharoDatabaseAccessor DefaultDriver: P3DatabaseDriver .
 
 	login := Login new
-		database: SQLServerPlatform new;
-		connectString: 'Provider=SQLNCLI11;Server=(localdb)\MSSQLLocalDB;Initial Catalog=People;Integrated Security=SSPI;';
-		username: '';
-		password: '';
+		database: PostgreSQLPlatform new;
+		username: 'pharo';
+		password: 'pharo';
+		connectString: 'localhost:5432_myDB';
 		encodingStrategy: #utf8;
 		yourself.
 
@@ -109,15 +118,15 @@ ExampleTestSQLServer >> testCreateTables [
 ]
 
 { #category : #tests }
-ExampleTestSQLServer >> testGroupBy [
+ExampleTestPostgreSQL >> testGroupBy [
 	| login session |
-	PharoDatabaseAccessor DefaultDriver: ADODatabaseDriver .
+	PharoDatabaseAccessor DefaultDriver: P3DatabaseDriver .
 
 	login := Login new
-		database: SQLServerPlatform new;
-		connectString: 'Provider=SQLNCLI11;Server=(localdb)\MSSQLLocalDB;Initial Catalog=People;Integrated Security=SSPI;';
-		username: '';
-		password: '';
+		database: PostgreSQLPlatform new;
+		username: 'pharo';
+		password: 'pharo';
+		connectString: 'localhost:5432_myDB';
 		encodingStrategy: #utf8;
 		yourself.
 
@@ -140,15 +149,15 @@ ExampleTestSQLServer >> testGroupBy [
 ]
 
 { #category : #tests }
-ExampleTestSQLServer >> testOrderBy [
+ExampleTestPostgreSQL >> testOrderBy [
 	| login session |
-	PharoDatabaseAccessor DefaultDriver: ADODatabaseDriver .
+	PharoDatabaseAccessor DefaultDriver: P3DatabaseDriver .
 
 	login := Login new
-		database: SQLServerPlatform new;
-		connectString: 'Provider=SQLNCLI11;Server=(localdb)\MSSQLLocalDB;Initial Catalog=People;Integrated Security=SSPI;';
-		username: '';
-		password: '';
+		database: PostgreSQLPlatform new;
+		username: 'pharo';
+		password: 'pharo';
+		connectString: 'localhost:5432_myDB';
 		encodingStrategy: #utf8;
 		yourself.
 
@@ -162,15 +171,15 @@ ExampleTestSQLServer >> testOrderBy [
 ]
 
 { #category : #tests }
-ExampleTestSQLServer >> testRead [
+ExampleTestPostgreSQL >> testRead [
 	| login session |
-	PharoDatabaseAccessor DefaultDriver: ADODatabaseDriver .
+	PharoDatabaseAccessor DefaultDriver: P3DatabaseDriver .
 
 	login := Login new
-		database: SQLServerPlatform new;
-		connectString: 'Provider=SQLNCLI11;Server=(localdb)\MSSQLLocalDB;Initial Catalog=People;Integrated Security=SSPI;';
-		username: '';
-		password: '';
+		database: PostgreSQLPlatform new;
+		username: 'pharo';
+		password: 'pharo';
+		connectString: 'localhost:5432_myDB';
 		encodingStrategy: #utf8;
 		yourself.
 
@@ -192,15 +201,15 @@ print how much each Person donated."
 ]
 
 { #category : #tests }
-ExampleTestSQLServer >> testWhere [
+ExampleTestPostgreSQL >> testWhere [
 	| login session |
-	PharoDatabaseAccessor DefaultDriver: ADODatabaseDriver .
+	PharoDatabaseAccessor DefaultDriver: P3DatabaseDriver .
 
 	login := Login new
-		database: SQLServerPlatform new;
-		connectString: 'Provider=SQLNCLI11;Server=(localdb)\MSSQLLocalDB;Initial Catalog=People;Integrated Security=SSPI;';
-		username: '';
-		password: '';
+		database: PostgreSQLPlatform new;
+		username: 'pharo';
+		password: 'pharo';
+		connectString: 'localhost:5432_myDB';
 		encodingStrategy: #utf8;
 		yourself.
 

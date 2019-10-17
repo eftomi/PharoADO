@@ -10,7 +10,7 @@ Class {
 		'invoices',
 		'tags'
 	],
-	#category : #'ADO-Glorp-Examples'
+	#category : #'PharoADO-Glorp-Examples'
 }
 
 { #category : #accessing }

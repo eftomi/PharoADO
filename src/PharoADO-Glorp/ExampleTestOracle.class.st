@@ -1,7 +1,7 @@
 Class {
 	#name : #ExampleTestOracle,
 	#superclass : #TestCase,
-	#category : #'ADO-Glorp-Examples'
+	#category : #'PharoADO-Glorp-Examples'
 }
 
 { #category : #tests }
@@ -11,7 +11,7 @@ ExampleTestOracle >> testAddPersons [
 
 	login := Login new
 		database: OraclePlatformADO new;
-		connectString: 'Driver={Oracle in instantclient_19_3};dbq=itchy.miskoti.si:1521/XE;Uid=c##pharo;Pwd=pharo;';
+		connectString: 'Driver={Oracle in instantclient_19_3};dbq=localhost:1521/XE;Uid=c##pharo;Pwd=pharo;';
 		username: '';
 		password: '';
 		encodingStrategy: #utf8;

@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'rowCount'
 	],
-	#category : #'ADO-Glorp-Core'
+	#category : #'PharoADO-Glorp-Core'
 }
 
 { #category : #executing }

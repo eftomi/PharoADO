@@ -6,7 +6,7 @@ Class {
 		'description',
 		'price'
 	],
-	#category : #'ADO-Glorp-Examples'
+	#category : #'PharoADO-Glorp-Examples'
 }
 
 { #category : #'as yet unclassified' }

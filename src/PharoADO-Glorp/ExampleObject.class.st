@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'id'
 	],
-	#category : #'ADO-Glorp-Examples'
+	#category : #'PharoADO-Glorp-Examples'
 }
 
 { #category : #accessing }

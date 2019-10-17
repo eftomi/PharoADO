@@ -103,11 +103,15 @@ ADOClient >> isConnected [
 { #category : #'instance creation' }
 ADOClient >> open [
 	"Open my connection with the server (do not yet #connect)"
-	
+	| usr pwd |
 	self close.
+	usr := ''.
+	pwd := ''.
+	(self user notNil) ifTrue: [ usr := self user ].
+	(self password notNil) ifTrue: [ pwd := self password ].
 	
-	connection := ADOConnection createInstance .
-	connection open: self connectString user: self user password: self password.
+	connection := ADOConnection createInstance.
+	connection open: self connectString user: usr password: pwd.
 	
 ]
 

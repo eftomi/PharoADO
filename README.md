@@ -135,3 +135,10 @@ session login.
 
 When Glorp writes data onto DBMS, it "serializes" it by means of SQL commands according to the corresponding database platform. When receiving query results, the data transformation is done by ADORecordset object, more precisely by PharoCOM. A diversity of data types that can be used thus depends from their definition in Glorp/DatabasePlatform itself and PharoCOM implementation.
 
+### PharoADO database platforms
+
+Package PharoAdo-Glorp includes two database platforms:
+- OraclePlatformADO is a subclass of OraclePlatform and defines decimal data type which is missing in OraclePlatform.
+- SQLServerPlatformN is a subclass of SQLServerPlatform and includes support for "National Language Character Set"; in INSERT INTO statemets, it prefixes literal WideStrings with N prefix. To use this, one has to define the field type in DescriptorSystem as 'platform nvarchar width: xx' and set the platform to SQLServerPlatformN.
+
+

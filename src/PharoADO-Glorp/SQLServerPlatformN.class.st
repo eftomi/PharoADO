@@ -4,7 +4,7 @@ Class {
 	#category : #'PharoADO-Glorp-Platforms'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #constants }
 SQLServerPlatformN >> prefixForUnicode [
 	^$N
 ]

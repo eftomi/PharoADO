@@ -10,22 +10,22 @@ ExampleTestSQLServer >> testAddPersons [
 	PharoDatabaseAccessor DefaultDriver: ADODatabaseDriver .
 
 	login := Login new
-		database: SQLServerPlatform new;
+		database: SQLServerPlatformN new;
 		connectString: 'Provider=SQLNCLI11;Server=(localdb)\MSSQLLocalDB;Initial Catalog=People;Integrated Security=SSPI;';
 		username: '';
 		password: '';
 		encodingStrategy: #utf8;
 		yourself.
 
-	session := ExampleDescriptorSystem sessionForLogin: login.
+	session := ExampleDescriptorSystemSQLServer sessionForLogin: login.
 	session login.
 
 "We will create some sample data for our example, and for the Persons we
 will save three instances named after famous Smalltalkers, with random addresses, so don’t mail them."
 
 	session inUnitOfWorkDo: [
-		{ 'Dan'. 'Alan'. 'Adele' }
-			with: {'Ingalls'. 'Kay'. 'Goldberg'}
+		{ 'Dan'. 'Alan'. 'Boštjan' }
+			with: {'Ingalls'. 'Kay'. 'Črnilogar Žmavc'}
 			do: [ :firstName :lastName |
 				| person |
 				person := (Person new
@@ -102,7 +102,7 @@ ExampleTestSQLServer >> testCreateTables [
 		encodingStrategy: #utf8;
 		yourself.
 
-	session := ExampleDescriptorSystem sessionForLogin: login.
+	session := ExampleDescriptorSystemSQLServer sessionForLogin: login.
 	session login.
 
 	session createTables .
@@ -121,7 +121,7 @@ ExampleTestSQLServer >> testGroupBy [
 		encodingStrategy: #utf8;
 		yourself.
 
-	session := ExampleDescriptorSystem sessionForLogin: login.
+	session := ExampleDescriptorSystemSQLServer sessionForLogin: login.
 	session login.
 	
 	(((SimpleQuery read: InvoiceItem)
@@ -152,7 +152,7 @@ ExampleTestSQLServer >> testOrderBy [
 		encodingStrategy: #utf8;
 		yourself.
 
-	session := ExampleDescriptorSystem sessionForLogin: login.
+	session := ExampleDescriptorSystemSQLServer sessionForLogin: login.
 	session login.
 	
 	(((SimpleQuery read: InvoiceItem)
@@ -174,7 +174,7 @@ ExampleTestSQLServer >> testRead [
 		encodingStrategy: #utf8;
 		yourself.
 
-	session := ExampleDescriptorSystem sessionForLogin: login.
+	session := ExampleDescriptorSystemSQLServer sessionForLogin: login.
 	session login.
 	
 "As usual, you can read the Invoices by doing session read: Invoice, let’s
@@ -204,7 +204,7 @@ ExampleTestSQLServer >> testWhere [
 		encodingStrategy: #utf8;
 		yourself.
 
-	session := ExampleDescriptorSystem sessionForLogin: login.
+	session := ExampleDescriptorSystemSQLServer sessionForLogin: login.
 	session login.
 	
 	(((SimpleQuery read: Invoice)

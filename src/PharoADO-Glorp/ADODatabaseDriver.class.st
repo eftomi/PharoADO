@@ -46,6 +46,11 @@ ADODatabaseDriver >> isConnected [
 	^ connection notNil and: [ connection isConnected ]
 ]
 
+{ #category : #login }
+ADODatabaseDriver >> logout [
+	connection close.
+]
+
 { #category : #transactions }
 ADODatabaseDriver >> rollbackTransaction [
 	connection connection rollbackTransaction 

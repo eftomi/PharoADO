@@ -44,6 +44,7 @@ ADOConnection >> execute: aString [
 
 { #category : #testing }
 ADOConnection >> isConnected [
+	(dispatchInstance getHandle = ExternalAddress new) ifTrue: [^false]. 
 	^ (dispatchInstance propertyNamed: 'State') = 1
 ]
 

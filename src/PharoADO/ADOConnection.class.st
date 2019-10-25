@@ -38,7 +38,7 @@ ADOConnection >> execute: aString [
 	rst dispatchInstance: (
 		dispatchInstance 
 			dispatch: 'Execute' 
-			withArguments: { aString }).
+			withArguments: { aString. 0. 16r1 }).
 	^rst
 ]
 

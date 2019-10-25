@@ -44,9 +44,13 @@ Metacello new
 
 The usage can be seen from test examples in ADOClientTests (package PharoADO). Examples of Glorp & PharoADO usage are available in ExampleTestOracle and ExampleTestSQLServer within PharoADO-Glorp package.
 
-Please pay special attention to the connection strings. If possible, try them out firstly by other tools, since diagnostics in PharoADO can be difficult (for now) if you are not versatile with the debugger.
+Please pay special attention to the connection strings. If possible, try them out firstly by other tools, since diagnostics in PharoADO can be difficult (for now) if you are not versatile with the debugger. If the exception occurs in COMMethod, you can check the ADO error description with:
 
+```smalltalk
+((self dispatchInstance propertyNamed: 'Errors') propertyNamed: 'Item' withArguments: { 0 }) propertyNamed: 'Description'.
+```
 
+on ADOConnection's eveluator.
 
 ### ADOClient 
 
@@ -141,4 +145,12 @@ Package PharoAdo-Glorp includes two database platforms:
 - OraclePlatformADO is a subclass of OraclePlatform and defines decimal data type which is missing in OraclePlatform.
 - SQLServerPlatformN is a subclass of SQLServerPlatform and includes support for "National Language Character Set"; in INSERT INTO statemets, it prefixes literal WideStrings with N prefix. To use this, one has to define the field type in DescriptorSystem as 'platform nvarchar width: xx' and set the platform to SQLServerPlatformN.
 
+### Miscellaneous
 
+When using SQL Server Native Client, it's best to enable Multiple Active Result Sets (MARS) in the connection string, like in:
+
+```
+Data Source=MSSQL; Initial Catalog=AdventureWorks; Integrated Security=SSPI; MultipleActiveResultSets=True
+```
+
+Otherwise, the provider might throw an exception "Cannot create new connection because in manual or distributed transaction mode." (https://docs.microsoft.com/en-us/sql/relational-databases/native-client/features/using-multiple-active-result-sets-mars?view=sql-server-ver15).

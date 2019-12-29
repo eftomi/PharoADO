@@ -55,3 +55,8 @@ ADODatabaseDriver >> logout [
 ADODatabaseDriver >> rollbackTransaction [
 	connection connection rollbackTransaction 
 ]
+
+{ #category : #accessing }
+ADODatabaseDriver >> rowCount [ 
+	^rowCount
+]

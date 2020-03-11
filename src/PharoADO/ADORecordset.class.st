@@ -1,6 +1,9 @@
 Class {
 	#name : #ADORecordset,
 	#superclass : #ADOObjects,
+	#instVars : [
+		'fields'
+	],
 	#category : #'PharoADO-Core'
 }
 
@@ -38,8 +41,8 @@ ADORecordset >> cancelUpdate [
 
 { #category : #'initialize-release' }
 ADORecordset >> close [
-	dispatchInstance
-		dispatch: 'Close'
+	self resetFields.
+	dispatchInstance dispatch: 'Close'
 ]
 
 { #category : #'submorphs-add/remove' }
@@ -56,10 +59,10 @@ ADORecordset >> eof [
 
 { #category : #accessing }
 ADORecordset >> fields [ 
-	| fields |
-	fields := ADOFields new.
+
+	fields ifNil: [fields := ADOFields new.
 	fields dispatchInstance: 
-		(dispatchInstance propertyNamed: 'Fields').
+		(dispatchInstance propertyNamed: 'Fields')].
 	^fields
 ]
 
@@ -89,15 +92,15 @@ ADORecordset >> movePrevious [
 
 { #category : #'as yet unclassified' }
 ADORecordset >> open: aString activeConnection: aConnection cursorType: aCursorType lockType: aLockType options: anOptions [
-	dispatchInstance 
+	self resetFields.
+	dispatchInstance
 		dispatch: 'Open'
-		withArguments: { 
-			aString.
+		withArguments:
+			{aString.
 			aConnection dispatchInstance.
-			aCursorType .
+			aCursorType.
 			aLockType.
-			anOptions.
-		 }
+			anOptions}
 ]
 
 { #category : #'as yet unclassified' }
@@ -110,6 +113,11 @@ ADORecordset >> recordCount [
 ADORecordset >> requery [
 	dispatchInstance
 		dispatch: 'Requery'
+]
+
+{ #category : #'initialize-release' }
+ADORecordset >> resetFields [
+	fields := nil
 ]
 
 { #category : #'accessing structure variables' }

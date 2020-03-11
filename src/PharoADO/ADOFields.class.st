@@ -1,6 +1,9 @@
 Class {
 	#name : #ADOFields,
 	#superclass : #ADOObjects,
+	#instVars : [
+		'items'
+	],
 	#category : #'PharoADO-Core'
 }
 
@@ -12,12 +15,23 @@ ADOFields >> count [
 
 { #category : #accessing }
 ADOFields >> item: anInteger [
-	| field |
-	field := ADOField new.
-	field dispatchInstance: 
-		(dispatchInstance
-			propertyNamed: 'Item'
-			withArguments: { anInteger - 1 }).
-	^field
-		
+	^ (self items
+		at: anInteger
+		ifAbsent: [ nil ])
+			ifNil:  
+		 [ | field |
+			field := ADOField new.
+			field
+				dispatchInstance:
+					(dispatchInstance
+						propertyNamed: 'Item'
+						withArguments: {(anInteger - 1)}).
+			self items at: anInteger put: field ]
+]
+
+{ #category : #accessing }
+ADOFields >> items [
+
+	^items ifNil: [ items := Array new: self count ]
+
 ]

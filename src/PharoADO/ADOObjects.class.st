@@ -4,6 +4,9 @@ Class {
 	#instVars : [
 		'dispatchInstance'
 	],
+	#pools : [
+		'ADOConstants'
+	],
 	#category : #'PharoADO-Core'
 }
 

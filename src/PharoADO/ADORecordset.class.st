@@ -7,7 +7,7 @@ Class {
 	#category : #'PharoADO-Core'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 ADORecordset class >> createInstance [
 	Ole32Lib uniqueInstance initLibrary.
 	^self new 
@@ -19,6 +19,22 @@ ADORecordset >> addNew [
 	dispatchInstance
 		dispatch: 'AddNew'
 
+]
+
+{ #category : #converting }
+ADORecordset >> asOrderedDictionary [
+	^OrderedDictionary
+		withAll:
+			((1 to: self fields count)
+				collect: [ :index | 
+					| item |
+					item := self fields item: index.
+					item name -> item value ])
+]
+
+{ #category : #testing }
+ADORecordset >> atEnd [
+	^self eof
 ]
 
 { #category : #'as yet unclassified' }

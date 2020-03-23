@@ -7,6 +7,9 @@ Class {
 		'settings',
 		'properties'
 	],
+	#pools : [
+		'ADOConstants'
+	],
 	#category : #'PharoADO-Core'
 }
 

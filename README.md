@@ -26,7 +26,7 @@ The default group loads both packages (PharoADO and PharoADO-Glorp), together wi
 ```smalltalk
 Metacello new
   baseline: 'PharoADO';
-  repository: 'github://eftomi/pharo-ado';
+  repository: 'github://eftomi/PharoADO';
   load.
 ```
 
@@ -35,7 +35,7 @@ If you don't need support for Glorp, you can load just the PharoADO like this:
 ```smalltalk
 Metacello new
   baseline: 'PharoADO';
-  repository: 'github://eftomi/pharo-ado';
+  repository: 'github://eftomi/PharoADO';
   load: 'pharo-ado'.
 ```
 

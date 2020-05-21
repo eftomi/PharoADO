@@ -79,7 +79,11 @@ conn
   user: '' 
   password: ''.
 rst := ADORecordset createInstance .
-rst open: 'SELECT * FROM PERSON' activeConnection: conn cursorType: 2 lockType: 3 options: -1.
+rst open: 'SELECT * FROM PERSON' 
+  activeConnection: conn 
+  cursorType: ADOpenDynamic 
+  lockType: ADLockOptimistic 
+  options: ADCmdUnspecified.
 
 rst addNew.
 (rst fields item: 2) value: 'John'.

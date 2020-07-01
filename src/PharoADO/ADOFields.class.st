@@ -2,7 +2,8 @@ Class {
 	#name : #ADOFields,
 	#superclass : #ADOObjects,
 	#instVars : [
-		'items'
+		'items',
+		'fieldsMap'
 	],
 	#category : #'PharoADO-Core'
 }
@@ -11,6 +12,14 @@ Class {
 ADOFields >> count [ 
 	^dispatchInstance 
 		propertyNamed: 'Count'
+]
+
+{ #category : #'private-accessing' }
+ADOFields >> fieldsMap [
+	fieldsMap
+		ifNil: [ fieldsMap := OrderedDictionary
+				withAll: (self items collect: [ :field | field name -> field ]) ].
+	^ fieldsMap
 ]
 
 { #category : #accessing }
@@ -34,4 +43,10 @@ ADOFields >> items [
 
 	^items ifNil: [ items := Array new: self count ]
 
+]
+
+{ #category : #'accessing-values' }
+ADOFields >> valueAt: aString [ 
+	
+	^(self fieldsMap at: aString) value
 ]

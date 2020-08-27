@@ -47,6 +47,13 @@ ADOConnection >> isConnected [
 	^ (dispatchInstance propertyNamed: 'State') = 1
 ]
 
+{ #category : #protocol }
+ADOConnection >> open: aConnectString [
+	dispatchInstance 
+		dispatch: 'Open' 
+		withArguments: { aConnectString }
+]
+
 { #category : #'as yet unclassified' }
 ADOConnection >> open: aConnectString user: aUser password: aPassword [  
 	dispatchInstance 

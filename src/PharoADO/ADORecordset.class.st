@@ -14,7 +14,7 @@ ADORecordset class >> createInstance [
 		dispatchInstance: (COMDispatchInstance createInstanceByName: 'ADODB.Recordset')
 ]
 
-{ #category : #adding }
+{ #category : #actions }
 ADORecordset >> addNew [
 	dispatchInstance
 		dispatch: 'AddNew'
@@ -37,7 +37,7 @@ ADORecordset >> atEnd [
 	^self eof
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #testing }
 ADORecordset >> bof [
 	^dispatchInstance
 		propertyNamed: 'BOF'
@@ -49,25 +49,25 @@ ADORecordset >> cancel [
 		dispatch: 'Cancel'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #actions }
 ADORecordset >> cancelUpdate [
 	dispatchInstance
 		dispatch: 'CancelUpdate'
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #actions }
 ADORecordset >> close [
 	self resetFields.
 	dispatchInstance dispatch: 'Close'
 ]
 
-{ #category : #'submorphs-add/remove' }
+{ #category : #actions }
 ADORecordset >> delete [ 
 	dispatchInstance
 		dispatch: 'Delete'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #testing }
 ADORecordset >> eof [
 	^dispatchInstance
 		propertyNamed: 'EOF'
@@ -82,31 +82,41 @@ ADORecordset >> fields [
 	^fields
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #positioning }
 ADORecordset >> moveFirst [
 	dispatchInstance
 		dispatch: 'MoveFirst'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #positioning }
 ADORecordset >> moveLast [
 	dispatchInstance
 		dispatch: 'MoveLast'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #positioning }
 ADORecordset >> moveNext [
 	dispatchInstance
 		dispatch: 'MoveNext'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #positioning }
 ADORecordset >> movePrevious [
 	dispatchInstance
 		dispatch: 'MovePrevious'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #querying }
+ADORecordset >> open: aString activeConnection: anADOConnection [
+	^ self
+		open: aString
+		activeConnection: anADOConnection
+		cursorType: ADOpenForwardOnly
+		lockType: ADLockReadOnly
+		options: ADCmdUnspecified
+]
+
+{ #category : #querying }
 ADORecordset >> open: aString activeConnection: aConnection cursorType: aCursorType lockType: aLockType options: anOptions [
 	self resetFields.
 	dispatchInstance
@@ -119,13 +129,13 @@ ADORecordset >> open: aString activeConnection: aConnection cursorType: aCursorT
 			anOptions}
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ADORecordset >> recordCount [
 	^dispatchInstance
 		propertyNamed: 'RecordCount'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #actions }
 ADORecordset >> requery [
 	dispatchInstance
 		dispatch: 'Requery'
@@ -136,14 +146,19 @@ ADORecordset >> resetFields [
 	fields := nil
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : #accessing }
 ADORecordset >> state [
 	^dispatchInstance
 		propertyNamed: 'State'
 ]
 
-{ #category : #updating }
+{ #category : #actions }
 ADORecordset >> update [
 	dispatchInstance
 		dispatch: 'Update'
+]
+
+{ #category : #'accessing-values' }
+ADORecordset >> valueAt: fieldName [ 
+	^self fields valueAt: fieldName
 ]
